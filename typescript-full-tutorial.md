@@ -1,10 +1,13 @@
 # TypeScript Full Tutorial — Basic to Advanced (with Explanations)
+# টাইপস্ক্রিপ্ট সম্পূর্ণ টিউটোরিয়াল — বেসিক থেকে অ্যাডভান্সড (ব্যাখ্যাসহ)
 
-TypeScript is JavaScript with a **type system** bolted on top. It compiles ("transpiles") down to plain JavaScript, so anything that runs in JS can run TS after compilation. The whole point is to catch mistakes *while you write code* instead of when it crashes at runtime.
+> **বাংলায়:** টাইপস্ক্রিপ্ট হলো জাভাস্ক্রিপ্টের ওপর একটি টাইপ সিস্টেম যোগ করা ভাষা। এটি প্লেইন জাভাস্ক্রিপ্টে কম্পাইল (ট্রান্সপাইল) হয়, তাই রানটাইমে ক্র্যাশ হওয়ার আগেই কোড লেখার সময় ভুল ধরে দেয়।
 
 ---
 
-## 1. Setup
+## 1. Setup — সেটআপ (টাইপস্ক্রিপ্ট ইনস্টল ও কম্পাইল)
+
+> **বাংলায়:** `npm` দিয়ে টাইপস্ক্রিপ্ট ইনস্টল করে `tsc` কমান্ডে `.ts` ফাইল কম্পাইল করা হয়। `tsconfig.json` দিয়ে কম্পাইলার কতটা স্ট্রিক্ট হবে তা ঠিক করা হয়।
 
 ```bash
 npm install -g typescript
@@ -15,9 +18,13 @@ tsc --watch          # auto-recompile on save
 
 `tsconfig.json` controls how strict and how modern the compiler behaves. Turning on `"strict": true` is highly recommended — it enables a bundle of safety checks (no implicit `any`, strict null checks, etc.).
 
+> **বাংলায়:** `tsconfig.json` কম্পাইলারের স্ট্রিক্টনেস ও মডার্নতা নিয়ন্ত্রণ করে। `"strict": true` চালু করার পরামর্শ দেওয়া হয়—এতে ইম্প্লিসিট `any` বন্ধ ও নাল-চেক সক্রিয় হয়।
+
 ---
 
-## 2. Basic Types
+## 2. Basic Types — মৌলিক টাইপ (number, string, boolean, tuple)
+
+> **বাংলায়:** টাইপস্ক্রিপ্টে ভেরিয়েবলের টাইপ আগেই বলে দেওয়া যায়—নাম্বার, স্ট্রিং, বুলিয়ান, অ্যারে, টাপল, `any`, `unknown`, `void`, `never` ইত্যাদি।
 
 ```ts
 let age: number = 25;
@@ -56,9 +63,13 @@ let n: null = null;
 
 **Why `unknown` over `any`:** `any` turns off type checking entirely — TypeScript stops helping you. `unknown` still forces a type check before you can use the value, so you keep safety while still allowing flexibility.
 
+> **বাংলায়:** `any` টাইপ-চেকিং সম্পূর্ণ বন্ধ করে দেয়, কিন্তু `unknown` ব্যবহারের আগে টাইপ চেক করতে বাধ্য করে—তাই নমনীয়তা রেখেও সেফটি বজায় থাকে।
+
 ---
 
-## 3. Type Inference & Annotations
+## 3. Type Inference & Annotations — টাইপ অনুমান ও টাইপ দেওয়া
+
+> **বাংলায়:** টাইপস্ক্রিপ্ট অনেক সময় ভেরিয়েবলের টাইপ নিজেই বুঝে নেয় (ইনফারেন্স)। তবে ফাংশনের প্যারামিটারে স্পষ্ট টাইপ দেওয়া ভালো।
 
 ```ts
 // TS infers types automatically — you don't always need to annotate
@@ -73,9 +84,13 @@ function add(a: number, b: number): number {
 
 **Rule of thumb:** let TypeScript infer variable types where obvious; annotate function parameters and public API boundaries explicitly for clarity and safety.
 
+> **বাংলায়:** নিয়ম হলো—সহজ বোঝা গেলে টাইপ অনুমান করতে দিন, কিন্তু ফাংশন প্যারামিটার ও পাবলিক API-এর সীমানায় স্পষ্ট টাইপ লিখুন স্পষ্টতা ও সেফটির জন্য।
+
 ---
 
-## 4. Interfaces & Type Aliases
+## 4. Interfaces & Type Aliases — ইন্টারফেস ও টাইপ অ্যালায়াস
+
+> **বাংলায়:** ইন্টারফেস ও টাইপ অ্যালায়াস দিয়ে অবজেক্টের গঠন (শেপ) বোঝানো যায়। ইন্টারফেস `extends` করা যায়, আর `type` দিয়ে ইউনিয়ন বা ইন্টারসেকশনও লেখা যায়।
 
 Both describe the *shape* of an object. They're similar but have some differences.
 
@@ -104,9 +119,13 @@ type AdminType = Point & { z: number }; // intersection instead of extends
 
 **Interface vs type:** interfaces can be re-opened and merged (declaration merging) and are generally preferred for object shapes; `type` is more flexible for unions, tuples, and mapped types. In modern practice, use `interface` for objects/classes and `type` for everything else (unions, function signatures, utility types).
 
+> **বাংলায়:** ইন্টারফেস পরে খোলা ও মার্জ করা যায় এবং অবজেক্ট শেপের জন্য এটি বেশি ব্যবহৃত হয়; `type` ইউনিয়ন, টাপল ও ম্যাপড টাইপের জন্য বেশি নমনীয়। অবজেক্ট/ক্লাসের জন্য `interface` এবং বাকি ক্ষেত্রে `type` ব্যবহার করুন।
+
 ---
 
-## 5. Functions
+## 5. Functions — ফাংশন (টাইপড প্যারামিটার ও রিটার্ন)
+
+> **বাংলায়:** ফাংশনের প্যারামিটার ও রিটার্ন টাইপ দেওয়া যায়, সাথে অপশনাল, ডিফল্ট, রেস্ট প্যারামিটার এবং ওভারলোডিং।
 
 ```ts
 // Typed parameters & return type
@@ -139,7 +158,9 @@ function process(x: any): any {
 
 ---
 
-## 6. Union & Intersection Types
+## 6. Union & Intersection Types — ইউনিয়ন ও ইন্টারসেকশন টাইপ
+
+> **বাংলায়:** ইউনিয়ন (`A | B`) মানে "এটি A অথবা B"; ইন্টারসেকশন (`A & B`) মানে "দুটোই থাকতে হবে"। API রেস্পন্স বা বড় শেপ তৈরিতে এরা কাজে লাগে।
 
 ```ts
 // Union: value can be one of several types
@@ -165,7 +186,15 @@ type Person = Named & Aged; // must have both name AND age
 
 ---
 
-## 7. Literal Types & Enums
+**Why this matters:** unions model "this OR that" (like an API response that's either success or error), while intersections model "this AND that" (combining smaller shapes into a richer one).
+
+> **বাংলায়:** ইউনিয়ন "এটি অথবা ওটি" (যেমন সাফল্য বা এরর রেস্পন্স) মডেল করে, আর ইন্টারসেকশন "এটি এবং ওটি"—ছোট শেপ মিলিয়ে বড় শেপ বানাতে সাহায্য করে।
+
+---
+
+## 7. Literal Types & Enums — লিটারেল টাইপ ও এনাম
+
+> **বাংলায়:** লিটারেল টাইপ নির্দিষ্ট কয়েকটি মানেই সীমাবদ্ধ করে; এনাম (enum) হলো নামকরণ করা কনস্ট্যান্টের সেট। `const enum` কম্পাইল টাইমে ইনলাইন হয়।
 
 ```ts
 // Literal types — restrict a value to specific exact values
@@ -194,7 +223,15 @@ const enum Direction { Up, Down }
 
 ---
 
-## 8. Arrays, Objects & Destructuring
+**Enums vs union literals:** modern TS style often prefers union literal types (`"up" | "down"`) over enums because they're simpler and don't generate extra JS code, but enums are useful when you want a named, iterable set of constants.
+
+> **বাংলায়:** আধুনিক টিএস-এ সাধারণত এনামের বদলে ইউনিয়ন লিটারেল (`"up" | "down"`) ব্যবহার করা হয় কারণ এটি সহজ ও অতিরিক্ত JS তৈরি করে না; তবে নামকরণ করা ইটারেবল কনস্ট্যান্ট দরকার হলে এনাম কাজে লাগে।
+
+---
+
+## 8. Arrays, Objects & Destructuring — অ্যারে, অবজেক্ট ও ডেস্ট্রাকচারিং
+
+> **বাংলায়:** টাইপস্ক্রিপ্টে অ্যারে ও অবজেক্টের টাইপ দেওয়া এবং ডেস্ট্রাকচারিংয়ের সময় টাইপ বলে দেওয়া যায়।
 
 ```ts
 const numbers: number[] = [1, 2, 3];
@@ -213,7 +250,9 @@ const [first, second]: [number, number] = [10, 20];
 
 ---
 
-## 9. Classes
+## 9. Classes — ক্লাস (Access Modifiers, Abstract)
+
+> **বাংলায়:** টিএস ক্লাসে `public`, `private`, `protected`, `readonly` মডিফায়ার, শর্টহ্যান্ড কনস্ট্রাক্টর, অ্যাবস্ট্রাক্ট ক্লাস ও `implements` ব্যবহার করা যায়।
 
 ```ts
 class Animal {
@@ -275,11 +314,21 @@ class Bird implements Flyable {
 - `protected` — within the class and subclasses
 - `readonly` — can be set once (usually in constructor), then immutable
 
+> **বাংলায় অ্যাক্সেস মডিফায়ার:**
+> - `public` — যেকোনো জায়গা থেকে অ্যাক্সেসযোগ্য (ডিফল্ট)
+> - `private` — শুধু সেই ক্লাসের ভেতরে
+> - `protected` — ক্লাস ও এর সাবক্লাসের ভেতরে
+> - `readonly` — একবার সেট করা যায় (সাধারণত কনস্ট্রাক্টরে), তারপর অপরিবর্তনীয়
+
 ---
 
-## 10. Generics
+## 10. Generics — জেনেরিক (পুনর্ব্যবহারযোগ্য টাইপ-সেফ কোড)
+
+> **বাংলায়:** জেনেরিক দিয়ে একই কোড একাধিক টাইপের জন্য ব্যবহার করা যায়, তবু টাইপ ইনফরমেশন নষ্ট হয় না। `T` দিয়ে টাইপ প্যারামিটার বোঝানো হয়।
 
 Generics let you write reusable code that works with multiple types while still preserving type safety — instead of using `any` (which loses type info) or writing duplicate functions per type.
+
+> **বাংলায়:** জেনেরিক ব্যবহার করে একাধিক টাইপের সাথে কাজ করে এমন পুনর্ব্যবহারযোগ্য কোড লেখা যায়, তবু টাইপ সেফটি থাকে—`any` ব্যবহার করলে যা হারিয়ে যায়।
 
 ```ts
 // Generic function
@@ -319,7 +368,9 @@ function merge<T, U>(a: T, b: U): T & U {
 
 ---
 
-## 11. Type Narrowing & Guards
+## 11. Type Narrowing & Guards — টাইপ ন্যারোইং ও গার্ড
+
+> **বাংলায়:** `typeof`, `instanceof`, `in` বা কাস্টম প্রেডিকেট গার্ড দিয়ে ইউনিয়ন টাইপকে ছোট নির্দিষ্ট টাইপে সীমাবদ্ধ (ন্যারো) করা যায়।
 
 ```ts
 function printValue(value: string | number) {
@@ -364,9 +415,13 @@ function handle(value: unknown) {
 
 ---
 
-## 12. Utility Types
+## 12. Utility Types — ইউটিলিটি টাইপ (Partial, Pick, Omit, Record)
+
+> **বাংলায়:** টিএস-এ বিল্ট-ইন হেল্পার টাইপ থাকে যা অন্য টাইপকে রূপান্তর করে—যেমন `Partial`, `Required`, `Readonly`, `Pick`, `Omit`, `Record`।
 
 TypeScript ships built-in helper types that transform other types — extremely common in real-world code.
+
+> **বাংলায়:** টাইপস্ক্রিপ্টে বিল্ট-ইন হেল্পার টাইপ থাকে যা অন্য টাইপকে রূপান্তর করে—বাস্তব প্রজেক্টে খুব বেশি ব্যবহৃত হয়।
 
 ```ts
 interface User {
@@ -405,9 +460,13 @@ type CreateUserParams = Parameters<typeof createUser>; // [string, number]
 
 ---
 
-## 13. Type Assertions
+## 13. Type Assertions — টাইপ অ্যাসারশন (কম্পাইলারকে "বিশ্বাস করানো")
+
+> **বাংলায়:** কখনো কখনো আপনি ভ্যালুর টাইপ সম্পর্কে কম্পাইলারের চেয়ে বেশি জানেন—`as` দিয়ে তা বলা যায়। তবে এটি রানটাইম চেক করে না, তাই সাবধানে ব্যবহার করুন।
 
 Sometimes you know more about a value's type than TypeScript does. Assertions tell the compiler "trust me" — but they don't perform any runtime conversion or checking, so use them carefully.
+
+> **বাংলায়:** কখনো কখনো আপনি ভ্যালুর টাইপ সম্পর্কে কম্পাইলারের চেয়ে বেশি জানেন। অ্যাসারশন কম্পাইলারকে "আমাকে বিশ্বাস করো" বলে, কিন্তু রানটাইমে কোনো কনভারশন বা চেক করে না—তাই সাবধানে ব্যবহার করুন।
 
 ```ts
 let value: unknown = "hello world";
@@ -423,7 +482,9 @@ function process(el: HTMLElement | null) {
 
 ---
 
-## 14. Mapped & Conditional Types (Advanced)
+## 14. Mapped & Conditional Types (Advanced) — ম্যাপড ও কন্ডিশনাল টাইপ (অ্যাডভান্সড)
+
+> **বাংলায়:** ম্যাপড টাইপ দিয়ে অন্য টাইপের প্রতিটি প্রপার্টি রূপান্তর করা যায়; কন্ডিশনাল টাইপ হলো টাইপ-লেভেলের টার্নারি (`T extends X ? A : B`)। `infer` দিয়ে ভেতরের টাইপ বের করা যায়।
 
 ```ts
 // Mapped types — build a new type by transforming each property of another
@@ -452,7 +513,9 @@ type EventName = `on${Capitalize<"click" | "hover">}`; // "onClick" | "onHover"
 
 ---
 
-## 15. Modules
+## 15. Modules — মডিউল (import/export ও type-only ইম্পোর্ট)
+
+> **বাংলায়:** টিএস-এ `import`/`export` দিয়ে কোড ভাগ করা যায়। `import type` দিয়ে শুধু টাইপ ইম্পোর্ট করলে কম্পাইল টাইমে তা মুছে যায় (রানটাইম খরচ নেই)।
 
 ```ts
 // math.ts
@@ -470,7 +533,9 @@ import type { User } from "./types";
 
 ---
 
-## 16. Working with the DOM
+## 16. Working with the DOM — DOM নিয়ে কাজ (সঠিক এলিমেন্ট টাইপ)
+
+> **বাংলায়:** টিএস ব্যবহার করে DOM এলিমেন্টকে সঠিক টাইপ (যেমন `HTMLInputElement`) হিসেবে কুয়েরি করা যায়, ফলে `.value` বা `.clientX`-এর মতো প্রপার্টি টাইপ-সেফ পাওয়া যায়।
 
 ```ts
 // Query elements with correct types
@@ -487,7 +552,9 @@ btn.addEventListener("click", (e: MouseEvent) => {
 
 ---
 
-## 17. Async/Await with Types
+## 17. Async/Await with Types — অ্যাসিনক/অউট টাইপসহ
+
+> **বাংলায়:** `async` ফাংশনে `Promise<ApiResponse>`-এর মতো রিটার্ন টাইপ দেওয়া যায়, আর জেনেরিক `fetchJson<T>` দিয়ে যেকোনো টাইপের রেস্পন্স টাইপ করা যায়।
 
 ```ts
 interface ApiResponse {
@@ -511,7 +578,9 @@ const user = await fetchJson<User>("/api/user");
 
 ---
 
-## 18. Declaration Files (`.d.ts`)
+## 18. Declaration Files (`.d.ts`) — ডিক্লারেশন ফাইল (টাইপ ডেফিনিশন)
+
+> **বাংলায়:** টাইপ নেই এমন JS লাইব্রেরির জন্য `.d.ts` ফাইলে `declare` কিয়ার্ড দিয়ে টাইপ বলে দেওয়া হয়। জনপ্রিয় লাইব্রেরির টাইপ `@types/...` প্যাকেজে পাওয়া যায়।
 
 When using plain JS libraries without built-in types, TypeScript relies on `.d.ts` declaration files to know their shapes.
 
@@ -533,7 +602,9 @@ Most popular libraries have community-maintained types via `@types/packagename` 
 
 ---
 
-## 19. Advanced Generics Patterns
+## 19. Advanced Generics Patterns — অ্যাডভান্সড জেনেরিক প্যাটার্ন
+
+> **বাংলায়:** ডিফল্ট জেনেরিক প্যারামিটার, অন্য জেনেরিকের ওপর কনস্ট্রেইন্ট এবং রিকার্সিভ টাইপ (যেমন `Json`)—জেনেরিকের উন্নত ব্যবহার এখানে দেখানো হয়েছে।
 
 ```ts
 // Default generic parameters
@@ -557,7 +628,9 @@ type Json = string | number | boolean | null | Json[] | { [key: string]: Json };
 
 ---
 
-## 20. `keyof`, `typeof`, and Indexed Access
+## 20. `keyof`, `typeof`, and Indexed Access — keyof, typeof ও ইন্ডেক্সড অ্যাক্সেস
+
+> **বাংলায়:** `keyof` দিয়ে একটি টাইপের কীগুলোর ইউনিয়ন পাওয়া যায়, `typeof` দিয়ে ভ্যালু থেকে টাইপ বানানো যায়, আর `User["id"]` দিয়ে নির্দিষ্ট প্রপার্টির টাইপ বের করা যায়।
 
 ```ts
 interface User { id: number; name: string; }
@@ -571,9 +644,13 @@ type Config = typeof config;       // { host: string; port: number }
 
 **Why useful:** these let you derive types *from existing values or types* instead of manually re-typing them — reducing duplication and keeping types in sync with actual code.
 
+> **বাংলায়:** এগুলো ব্যবহার করে বিদ্যমান ভ্যালু বা টাইপ থেকে নতুন টাইপ তৈরি করা যায়—হাতে আবার টাইপ লেখার ঝামেলা কমে এবং টাইপ কোডের সাথে সিঙ্ক থাকে।
+
 ---
 
-## 21. Strict Mode Flags Worth Knowing
+## 21. Strict Mode Flags Worth Knowing — জানা উচিত এমন স্ট্রিক্ট ফ্ল্যাগ
+
+> **বাংলায়:** `tsconfig.json`-এ এই স্ট্রিক্ট ফ্ল্যাগগুলো চালু করলে কম্পাইলার আরও বেশি ভুল ধরতে পারে।
 
 | Flag | Effect |
 |---|---|
@@ -586,7 +663,9 @@ type Config = typeof config;       // { host: string; port: number }
 
 ---
 
-## 22. Quick Reference: Interview Concepts
+## 22. Quick Reference: Interview Concepts — দ্রুত রেফারেন্স: ইন্টারভিউ ধারণাসমূহ
+
+> **বাংলায়:** টাইপস্ক্রিপ্ট ইন্টারভিউতে সচরাচর জিজ্ঞাসিত ধারণাগুলো টেবিল আকারে দেওয়া হয়েছে।
 
 | Concept | Key Point |
 |---|---|
@@ -601,7 +680,9 @@ type Config = typeof config;       // { host: string; port: number }
 
 ---
 
-## 23. Practice Tips
+## 23. Practice Tips — অনুশীলনের টিপস
+
+> **বাংলায়:** ধাপে ধাপে JS প্রজেক্ট টিএস-এ রূপান্তর, জেনেরিক ইউটিলিটি ফাংশন লেখা এবং `Partial`/`Pick`/`Omit` নিজে বানিয়ে দক্ষতা বাড়ানোর পরামর্শ দেওয়া হয়েছে।
 - Convert an existing JS project to TS file-by-file, fixing type errors as they surface.
 - Practice writing generic utility functions (`pick`, `groupBy`, `debounce`) with proper types.
 - Try implementing `Partial`, `Pick`, and `Omit` yourself using mapped types, before checking the built-in versions.

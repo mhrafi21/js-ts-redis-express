@@ -1,31 +1,43 @@
 # Redis with Node.js & Express — Complete Tutorial
+# Redis-এর সাথে Node.js ও Express — সম্পূর্ণ টিউটোরিয়াল
 
 A practical, end-to-end guide to using Redis in an Express application: caching, sessions, rate limiting, and pub/sub.
 
+> **বাংলায়:** এটি একটি ব্যবহারিক, শেষ-থেকে-শেষ গাইড যা Express অ্যাপে Redis ব্যবহার করা শেখায়: ক্যাশিং, সেশন, রেট লিমিটিং ও পাব/সাব।
+
 ---
 
-## 1. What is Redis and Why Use It?
+## 1. What is Redis and Why Use It? — Redis কী এবং কেন ব্যবহার করবেন?
+
+> **বাংলায়:** Redis হলো একটি ইন-মেমোরি কী-ভ্যালু ডেটা স্টোর যা খুব দ্রুত (সাব-মিলিসেকেন্ড)। ক্যাশিং, সেশন, রেট লিমিট, পাব/সাব ও লিডারবোর্ডের জন্য ব্যবহৃত হয়।
 
 Redis is an in-memory key-value data store. Because data lives in RAM, reads and writes are extremely fast (sub-millisecond), which makes it ideal for:
 
-- **Caching** — store expensive database query results or API responses
-- **Session storage** — share login sessions across multiple server instances
-- **Rate limiting** — track request counts per user/IP
-- **Pub/Sub messaging** — real-time notifications between services
-- **Queues** — background job processing (with libraries like BullMQ)
-- **Leaderboards / counters** — using sorted sets and atomic increments
+> **বাংলায়:** Redis একটি ইন-মেমোরি কী-ভ্যালু ডেটা স্টোর। ডেটা RAM-এ থাকায় পড়া ও লেখা খুব দ্রুত (সাব-মিলিসেকেন্ড), তাই এটি নিচের কাজগুলোর জন্য আদর্শ:
+> - **ক্যাশিং** — ব্যয়বহুল DB ক্যোয়েরি বা API রেস্পন্স সাময়িক জমা রাখা
+> - **সেশন স্টোরেজ** — একাধিক সার্ভার ইনস্ট্যান্সে লগইন সেশন শেয়ার করা
+> - **রেট লিমিটিং** — ইউজার/IP প্রতি রিকোয়েস্ট গোনা
+> - **পাব/সাব মেসেজিং** — সার্ভিসের মধ্যে রিয়েল-টাইম নোটিফিকেশন
+> - **কিউ** — ব্যাকগ্রাউন্ড জব (BullMQ-এর মতো)
+> - **লিডারবোর্ড/কাউন্টার** — সর্টেড সেট ও অ্যাটমিক ইনক্রিমেন্ট
 
 Redis supports several data structures beyond simple strings: hashes, lists, sets, sorted sets, streams, and more.
 
+> **বাংলায়:** সাধারণ স্ট্রিং ছাড়াও Redis হ্যাশ, লিস্ট, সেট, সর্টেড সেট, স্ট্রিম ইত্যাদি ডেটা স্ট্রাকচার সাপোর্ট করে।
+
 ---
 
-## 2. Prerequisites
+## 2. Prerequisites — প্রয়োজনীয়তা (Prerequisites)
+
+> **বাংলায়:** শুরু করার আগে আপনার Node.js 18+, npm/yarn এবং একটি Redis সার্ভার (লোকাল বা Docker) লাগবে।
 
 - Node.js 18+ installed
 - npm or yarn
 - Redis server (locally or via Docker)
 
-### Installing Redis locally
+### Installing Redis locally — লোকালে Redis ইনস্টল করা
+
+> **বাংলায়:** নিচে macOS, Ubuntu/Debian ও Docker-এর জন্য Redis ইনস্টল ও চালু করার কমান্ড দেওয়া হয়েছে। Docker ব্যবহার সব প্ল্যাটফর্মে সুবিধাজনক।
 
 **macOS (Homebrew):**
 ```bash
@@ -53,7 +65,9 @@ redis-cli ping
 
 ---
 
-## 3. Project Setup
+## 3. Project Setup — প্রজেক্ট সেটআপ
+
+> **বাংলায়:** নতুন ফোল্ডার বানিয়ে Express, redis ও dotenv ইনস্টল করে `.env` ফাইল ও `package.json`-এ dev স্ক্রিপ্ট যোগ করতে হবে।
 
 ```bash
 mkdir redis-express-tutorial
@@ -81,7 +95,9 @@ Add a dev script to `package.json`:
 
 ---
 
-## 4. Connecting to Redis
+## 4. Connecting to Redis — Redis-এর সাথে কানেক্ট করা
+
+> **বাংলায়:** অফিশিয়াল `redis` npm প্যাকেজ (node-redis v4+) Promise-ভিত্তিক API দেয়। এখানে `redisClient.js` ও বেস `server.js` বানানো হয়েছে যা কানেকশন ত্রুটি হ্যান্ডেল করে।
 
 We'll use the official `redis` npm package (node-redis v4+), which has a Promise-based API.
 
@@ -142,11 +158,13 @@ You should see `Redis client ready` and `Server running on http://localhost:3000
 
 ---
 
-## 5. Basic Redis Operations
+## 5. Basic Redis Operations — Redis-এর মৌলিক অপারেশন
 
 Let's add routes that demonstrate core Redis data types.
 
-### Strings (GET/SET with expiry)
+> **বাংলায়:** এখানে রাউট যোগ করে Redis-এর মূল ডেটা টাইপগুলো (স্ট্রিং, হ্যাশ, লিস্ট, সেট, সর্টেড সেট) দেখানো হয়েছে।
+
+### Strings (GET/SET with expiry) — স্ট্রিং (মেয়াদসহ GET/SET)
 
 ```js
 // routes/strings.js
@@ -172,7 +190,7 @@ router.get('/strings/:key', async (req, res) => {
 module.exports = router;
 ```
 
-### Hashes (store objects)
+### Hashes (store objects) — হ্যাশ (অবজেক্ট স্টোর করতে)
 
 ```js
 // routes/hashes.js
@@ -200,7 +218,7 @@ router.get('/users/:id', async (req, res) => {
 module.exports = router;
 ```
 
-### Lists (queues / recent activity)
+### Lists (queues / recent activity) — লিস্ট (কিউ / সাম্প্রতিক কার্যকলাপ)
 
 ```js
 // routes/lists.js
@@ -225,7 +243,7 @@ router.get('/activity', async (req, res) => {
 module.exports = router;
 ```
 
-### Sets (unique tags, membership checks)
+### Sets (unique tags, membership checks) — সেট (ইউনিক ট্যাগ, সদস্যপদ চেক)
 
 ```js
 // routes/sets.js
@@ -247,7 +265,7 @@ router.get('/posts/:id/tags', async (req, res) => {
 module.exports = router;
 ```
 
-### Sorted Sets (leaderboards)
+### Sorted Sets (leaderboards) — সর্টেড সেট (লিডারবোর্ড)
 
 ```js
 // routes/leaderboard.js
@@ -289,9 +307,11 @@ app.use(leaderboardRoutes);
 
 ---
 
-## 6. Building a Cache-Aside Layer
+## 6. Building a Cache-Aside Layer — ক্যাশ-অ্যাসাইড লেয়ার তৈরি করা
 
 The most common Redis use case: cache expensive database calls.
+
+> **বাংলায়:** Redis-এর সবচেয়ে সাধারণ ব্যবহার: ব্যয়বহুল ডেটাবেস কল ক্যাশ করা। ক্যাশে থাকলে সেখান থেকে দ্রুত রিটার্ন করে, না থাকলে DB থেকে এনে ক্যাশে রাখে।
 
 ```js
 // routes/products.js
@@ -338,9 +358,13 @@ module.exports = router;
 
 **Pattern to remember:** check cache → on miss, fetch from source → write to cache → return. Always set a TTL so stale data eventually expires even if you forget to invalidate it manually.
 
-### Generic caching middleware
+> **বাংলায় মনে রাখার নিয়ম:** আগে ক্যাশ চেক করো → না পেলে মূল উৎস থেকে আনো → ক্যাশে লেখো → রিটার্ন করো। সবসময় TTL সেট করো যাতে ভুলে গেলেও পুরোনো ডেটা একসময় মুছে যায়।
+
+### Generic caching middleware — জেনেরিক ক্যাশিং মিডলওয়্যার
 
 You can generalize this into reusable middleware:
+
+> **বাংলায়:** এই ক্যাশিং লজিককে পুনর্ব্যবহারযোগ্য মিডলওয়্যার হিসেবে লিখে যেকোনো রাউটে লাগানো যায়।
 
 ```js
 // middleware/cache.js
@@ -388,9 +412,11 @@ router.get(
 
 ---
 
-## 7. Session Management with Redis
+## 7. Session Management with Redis — Redis দিয়ে সেশন ম্যানেজমেন্ট
 
 Storing sessions in Redis lets you scale Express across multiple instances without losing login state.
+
+> **বাংলায়:** সেশন Redis-এ রাখলে একাধিক Express ইনস্ট্যান্স চালিয়েও লগইন অবস্থা হারাবেন না—সব ইনস্ট্যান্স একই Redis থেকে সেশন পড়তে পারে।
 
 ```bash
 npm install express-session connect-redis
@@ -437,11 +463,13 @@ app.post('/logout', (req, res) => {
 
 Each session is stored as a Redis key like `sess:<sessionId>`, so any server instance reading from the same Redis can validate the session — perfect for load-balanced deployments.
 
----
+> **বাংলায়:** প্রতিটি সেশন `sess:<sessionId>` আকারে Redis কী হিসেবে জমা থাকে, তাই একই Redis পড়া যেকোনো সার্ভার ইনস্ট্যান্স সেশন যাচাই করতে পারে—লোড-ব্যালেন্সড ডিপ্লয়ের জন্য আদর্শ।
 
-## 8. Rate Limiting
+## 8. Rate Limiting — রেট লিমিটিং (অপব্যবহার ঠেকাতে)
 
 Protect an API endpoint from abuse using Redis counters.
+
+> **বাংলায়:** Redis কাউন্টার (INCR) ব্যবহার করে একটি API এন্ডপয়েন্টকে অপব্যবহার থেকে রক্ষা করা যায়—প্রতি ক্লায়েন্ট নির্দিষ্ট সময়ে সীমিত রিকোয়েস্ট করতে পারবে।
 
 ```js
 // middleware/rateLimit.js
@@ -490,13 +518,15 @@ This gives each client 20 requests per rolling 60-second window. `INCR` is atomi
 
 For production-grade rate limiting with more algorithms (sliding window, token bucket), consider the `rate-limit-redis` package alongside `express-rate-limit`.
 
----
+> **বাংলায়:** এটি প্রতি ক্লায়েন্টকে ৬০ সেকেন্ডে সর্বোচ্চ ২০টি রিকোয়েস্ট দেয়। Redis-এ `INCR` অ্যাটমিক বলে কনকারেন্ট ট্রাফিকেও এটি নিরাপদ (আলাদা লক লাগে না)। প্রোডাকশনে স্লাইডিং উইন্ডো বা টোকেন বালতির জন্য `rate-limit-redis` + `express-rate-limit` বিবেচনা করুন।
 
-## 9. Pub/Sub — Real-Time Messaging
+## 9. Pub/Sub — Real-Time Messaging — পাব/সাব: রিয়েল-টাইম মেসেজিং
 
 Redis Pub/Sub is useful for broadcasting events between services (e.g., notifying all server instances when something changes).
 
 Note: node-redis requires a **separate client connection** for subscribing, since a subscriber connection can't run normal commands.
+
+> **বাংলায়:** Redis পাব/সাব সার্ভিসের মধ্যে ইভেন্ট ব্রডকাস্ট করতে (যেমন কিছু বদলালে সব ইনস্ট্যান্সকে জানানো) কাজে লাগে। লক্ষ্য রাখবেন: সাবস্ক্রাইব করতে আলাদা ক্লায়েন্ট কানেকশন লাগে, কারণ সাবস্ক্রাইবার কানেকশন সাধারণ কমান্ড চালাতে পারে না।
 
 ```js
 // pubsub.js
@@ -548,19 +578,22 @@ start().then(async () => {
 
 In a multi-instance deployment, every instance subscribed to `orders` receives the message, which is how you can fan out real-time updates (e.g., to connected WebSocket clients) across all your servers.
 
----
+> **বাংলায়:** মাল্টি-ইনস্ট্যান্স ডিপ্লয়ে `orders`-এ সাবস্ক্রাইব করা প্রতিটি ইনস্ট্যান্স মেসেজ পায়—এভাবে রিয়েল-টাইম আপডেট (যেমন কানেক্টেড WebSocket ক্লায়েন্টে) সব সার্ভারে ছড়িয়ে দেওয়া যায়।
 
-## 10. Error Handling & Best Practices
+## 10. Error Handling & Best Practices — এরর হ্যান্ডলিং ও সেরা চর্চা
 
-- **Always set TTLs on cache keys.** Never let cached data live forever by accident.
-- **Fail open, not closed.** If Redis is down, your app should usually still serve requests (perhaps slower, from the database) rather than crash. Wrap Redis calls in try/catch and fall through to the source of truth on error.
-- **Use meaningful key naming conventions**, like `resource:id:field` (e.g. `user:42:profile`), to keep keys organized and avoid collisions.
-- **Avoid the `KEYS` command in production** — it blocks the server while scanning the whole keyspace. Use `SCAN` for iterating over keys instead.
-- **Reuse a single client connection** per process rather than creating new connections per request.
-- **Handle reconnection.** node-redis automatically retries by default, but log `error` and `reconnecting` events so you can monitor connection health.
-- **Set `maxmemory-policy`** in your Redis config (e.g., `allkeys-lru`) if you're using Redis purely as a cache, so it evicts old data instead of running out of memory.
+> **বাংলায়:** নিচে Redis ব্যবহারের কিছু গুরুত্বপূর্ণ নিয়ম দেওয়া হয়েছে যাতে অ্যাপ নিরাপদ ও দ্রুত থাকে।
+> - **সব ক্যাশ কী-তে TTL সেট করুন**—ভুলে ডেটা চিরকাল না থাকুক।
+> - **ফেইল ওপেন, ফেইল ক্লোজড নয়**—Redis বন্ধ থাকলে অ্যাপ ক্র্যাশ না করে DB থেকে (ধীরে) সার্ভ করুক।
+> - **অর্থপূর্ণ কী-নামিং** ব্যবহার করুন (যেমন `user:42:profile`)।
+> - **প্রোডাকশনে `KEYS` কমান্ড এড়িয়ে চলুন**—পুরো কীস্পেস স্ক্যান করে সার্ভার আটকায়; `SCAN` ব্যবহার করুন।
+> - **প্রতি প্রসেসে একটিই ক্লায়েন্ট কানেকশন** রি-ইউজ করুন।
+> - **রি-কানেকশন হ্যান্ডেল করুন**—`error` ও `reconnecting` ইভেন্ট লগ করুন।
+> - শুধু ক্যাশ হিসেবে ব্যবহার করলে `maxmemory-policy` (যেমন `allkeys-lru`) সেট করুন যাতে পুরোনো ডেটা সরে যায়।
 
 Graceful shutdown example:
+
+> **বাংলায়:** নিচে দেখানো হয়েছে কীভাবে SIGTERM সিগন্যাল পেলে Redis কানেকশন ঠিকমতো বন্ধ (quit) করে অ্যাপ শাট ডাউন করতে হয়।
 
 ```js
 process.on('SIGTERM', async () => {
@@ -572,7 +605,9 @@ process.on('SIGTERM', async () => {
 
 ---
 
-## 11. Running Everything with Docker Compose
+## 11. Running Everything with Docker Compose — Docker Compose দিয়ে সব চালানো
+
+> **বাংলায়:** `docker-compose.yml` ও `Dockerfile` দিয়ে Express অ্যাপ ও Redis একসাথে কন্টেইনারে চালানো যায়। `docker compose up --build` কমান্ডে সব চালু হয়।
 
 To spin up both your Express app and Redis together:
 
@@ -619,7 +654,9 @@ docker compose up --build
 
 ---
 
-## 12. Project Structure Recap
+## 12. Project Structure Recap — প্রজেক্ট স্ট্রাকচার সারসংক্ষেপ
+
+> **বাংলায়:** নিচে এই টিউটোরিয়ালে তৈরি করা ফাইল ও ফোল্ডারের গঠন দেওয়া হয়েছে।
 
 ```
 redis-express-tutorial/
@@ -643,11 +680,10 @@ redis-express-tutorial/
 
 ---
 
-## 13. Where to Go Next
+## 13. Where to Go Next — এরপর কী শিখবেন?
 
-- **BullMQ** — Redis-backed job queues for background processing
-- **RedisJSON / RediSearch** — modules for storing and querying JSON documents directly in Redis
-- **Redis Streams** — an append-only log structure, good for event sourcing
-- **Cluster mode** — for horizontal scaling of Redis itself once a single instance isn't enough
+> **বাংলায়:** এগিয়ে যাওয়ার জন্য BullMQ (জব কিউ), RedisJSON/RediSearch (JSON কোয়েরি), Redis Streams (ইভেন্ট সোর্সিং) ও Cluster mode (স্কেলিং) শিখতে পারেন।
 
 This tutorial covered the core patterns you'll use in the vast majority of real-world apps: caching, sessions, rate limiting, and pub/sub — all backed by a fast, atomic, in-memory data store.
+
+> **বাংলায়:** এই টিউটোরিয়ালে বাস্তব অ্যাপের বেশিরভাগ ক্ষেত্রে ব্যবহৃত মূল প্যাটার্নগুলো শেখানো হয়েছে: ক্যাশিং, সেশন, রেট লিমিটিং ও পাব/সাব—একটি দ্রুত, অ্যাটমিক, ইন-মেমোরি ডেটা স্টোরের ওপর ভিত্তি করে।

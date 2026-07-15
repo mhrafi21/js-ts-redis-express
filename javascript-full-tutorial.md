@@ -2,16 +2,18 @@
 
 ---
 
-## 1. Basics
+## 1. Basics — মৌলিক বিষয় (Variables, Data Types, Operators)
 
-### Variables
+> **বাংলায়:** এই অধ্যায়ে জাভাস্ক্রিপ্টের মৌলিক ধারণা—ভেরিয়েবল, ডেটা টাইপ ও অপারেটর—দেখানো হয়েছে।
+
+### Variables — ভেরিয়েবল (var, let, const)
 ```js
 var a = 10;    // function-scoped, hoisted, avoid using
 let b = 20;    // block-scoped, can be reassigned
 const c = 30;  // block-scoped, cannot be reassigned
 ```
 
-### Data Types
+### Data Types — ডেটা টাইপ (String, Number, Boolean ইত্যাদি)
 ```js
 // Primitive types
 let str = "hello";        // string
@@ -29,7 +31,7 @@ typeof str;  // "string"
 typeof obj;  // "object"
 ```
 
-### Operators
+### Operators — অপারেটর (গাণিতিক, তুলনামূলক, লজিক্যাল)
 ```js
 // Arithmetic
 5 + 2, 5 - 2, 5 * 2, 5 / 2, 5 % 2, 5 ** 2
@@ -48,7 +50,7 @@ let x = null ?? "default";     // "default"
 let y = obj?.address?.city;    // safe access, undefined if missing
 ```
 
-### Type Coercion
+### Type Coercion — টাইপ কোয়ার্সন (এক টাইপ থেকে অন্য টাইপে রূপান্তর)
 ```js
 "5" + 3;    // "53" (string concatenation)
 "5" - 3;    // 2 (numeric coercion)
@@ -57,7 +59,9 @@ Boolean(0), Boolean(""), Boolean(null), Boolean(undefined), Boolean(NaN); // all
 
 ---
 
-## 2. Control Flow
+## 2. Control Flow — নিয়ন্ত্রণ প্রবাহ (if/else, switch, loops)
+
+> **বাংলায়:** কোড কীভাবে শর্ত অনুযায়ী বা পুনরাবৃত্তিতে চলে তা এখানে দেখানো হয়েছে।
 
 ```js
 // if / else
@@ -95,7 +99,9 @@ for (let i = 0; i < 10; i++) {
 
 ---
 
-## 3. Functions
+## 3. Functions — ফাংশন (Declaration, Expression, Arrow)
+
+> **বাংলায়:** ফাংশন ডিক্লারেশন, এক্সপ্রেশন, অ্যারো ফাংশন, ডিফল্ট ও রেস্ট প্যারামিটার এখানে আলোচনা করা হয়েছে।
 
 ```js
 // Declaration (hoisted)
@@ -127,7 +133,9 @@ const double = multiplyBy(2);
 
 ---
 
-## 4. Arrays
+## 4. Arrays — অ্যারে (push, map, filter, reduce)
+
+> **বাংলায়:** অ্যারের সাধারণ ও ফাংশনাল মেথড (map, filter, reduce ইত্যাদি) এখানে দেখানো হয়েছে।
 
 ```js
 const arr = [1, 2, 3, 4, 5];
@@ -165,7 +173,9 @@ const combined = [...arr, ...[6, 7]];
 
 ---
 
-## 5. Objects
+## 5. Objects — অবজেক্ট (Properties, Destructuring, Spread)
+
+> **বাংলায়:** অবজেক্ট তৈরি, প্রপার্টি অ্যাক্সেস, ডেস্ট্রাকচারিং ও স্প্রেড অপারেটর নিয়ে এই অধ্যায়।
 
 ```js
 const person = {
@@ -203,7 +213,9 @@ const point = { x, y };
 
 ---
 
-## 6. Strings
+## 6. Strings — স্ট্রিং (টেক্সট মেথড ও টেমপ্লেট লিটারেল)
+
+> **বাংলায়:** স্ট্রিংয়ের বিভিন্ন মেথড এবং টেমপ্লেট লিটারেল (ব্যাকটিক দিয়ে মাল্টি-লাইন টেক্সট) এখানে দেখানো হয়েছে।
 
 ```js
 const s = "Hello World";
@@ -228,7 +240,9 @@ Line 2`;
 
 ---
 
-## 7. Scope, Hoisting & Closures
+## 7. Scope, Hoisting & Closures — স্কোপ, হোইস্টিং ও ক্লোজার
+
+> **বাংলায়:** স্কোপ (দৃশ্যমানতা), হোইস্টিং (ভেরিয়েবল ওপরে তোলা) এবং ক্লোজার (ফাংশন তার আশেপাশের স্কোপ মনে রাখে) বুঝতে এই অধ্যায়টি গুরুত্বপূর্ণ।
 
 ```js
 // Scope
@@ -262,7 +276,9 @@ counter.increment(); // 2
 
 ---
 
-## 8. `this`, call/apply/bind
+## 8. `this`, call/apply/bind — this, call/apply/bind (ফাংশনের this নিয়ন্ত্রণ)
+
+> **বাংলায়:** `this` কীভাবে কাজ করে এবং `call`, `apply`, `bind` দিয়ে তা কীভাবে বদলাতে হয় তা এখানে বোঝানো হয়েছে।
 
 ```js
 const obj = {
@@ -280,7 +296,9 @@ bound();                         // Dan
 
 ---
 
-## 9. Prototypes & Classes
+## 9. Prototypes & Classes — প্রোটোটাইপ ও ক্লাস
+
+> **বাংলায়:** জাভাস্ক্রিপ্টে প্রোটোটাইপ-ভিত্তিক ইনহেরিটেন্স এবং ES6 ক্লাস (constructor, extends, static, getter) নিয়ে আলোচনা।
 
 ```js
 // Prototype-based inheritance
@@ -320,7 +338,9 @@ class Counter {
 
 ---
 
-## 10. Error Handling
+## 10. Error Handling — এরর হ্যান্ডলিং (try/catch, Custom Errors)
+
+> **বাংলায়:** `try/catch/finally` দিয়ে এরর সামলানো এবং নিজের কাস্টম এরর ক্লাস তৈরি করা এখানে দেখানো হয়েছে।
 
 ```js
 try {
@@ -345,9 +365,11 @@ function validate(age) {
 
 ---
 
-## 11. Asynchronous JavaScript
+## 11. Asynchronous JavaScript — অ্যাসিনক্রোনাস জাভাস্ক্রিপ্ট (Callback, Promise, async/await)
 
-### Callbacks
+> **বাংলায়:** অ্যাসিনক্রোনাস বা অপেক্ষামূলক কোড লেখার তিনটি পদ্ধতি—কলব্যাক, প্রমিস ও async/await—এখানে ব্যাখ্যা করা হয়েছে।
+
+### Callbacks — কলব্যাক (ফাংশনকে আর্গুমেন্ট হিসেবে পাঠানো)
 ```js
 function fetchData(callback) {
   setTimeout(() => callback("data"), 1000);
@@ -355,7 +377,7 @@ function fetchData(callback) {
 fetchData(data => console.log(data));
 ```
 
-### Promises
+### Promises — প্রমিস (ভবিষ্যতের ফলাফল)
 ```js
 const promise = new Promise((resolve, reject) => {
   const success = true;
@@ -374,7 +396,7 @@ Promise.race([p1, p2]);           // first to settle
 Promise.any([p1, p2]);            // first to fulfill
 ```
 
-### Async/Await
+### Async/Await — async/await (প্রমিসের ওপর সুন্দর সিনট্যাক্স)
 ```js
 async function getData() {
   try {
@@ -392,7 +414,9 @@ async function getBoth() {
 }
 ```
 
-### Event Loop (concept)
+### Event Loop (concept) — ইভেন্ট লুপ (ধারণা)
+
+> **বাংলায়:** জাভাস্ক্রিপ্ট একক থ্রেডে চলে; ইভেন্ট লুপ কল স্ট্যাক, ওয়েব API ও কুইউগুলো সামলায়। মাইক্রোটাস্ক (প্রমিস) ম্যাক্রোটাস্ক (setTimeout)-এর আগে চলে।
 ```
 Call Stack → Web APIs → Callback Queue / Microtask Queue → Event Loop
 Microtasks (Promises) run BEFORE macrotasks (setTimeout).
@@ -407,7 +431,9 @@ console.log("4");
 
 ---
 
-## 12. DOM Manipulation
+## 12. DOM Manipulation — DOM ম্যানিপুলেশন (এলিমেন্ট ও ইভেন্ট)
+
+> **বাংলায়:** ব্রাউজারের HTML এলিমেন্ট নির্বাচন, পরিবর্তন ও ইভেন্ট (ক্লিক ইত্যাদি) হ্যান্ডেল করার পদ্ধতি এখানে দেখানো হয়েছে।
 
 ```js
 // Selecting
@@ -443,7 +469,9 @@ document.body.addEventListener("click", (e) => {
 
 ---
 
-## 13. ES6+ Modules
+## 13. ES6+ Modules — ES6+ মডিউল (import/export)
+
+> **বাংলায়:** কোডকে ছোট ছোট ফাইলে ভাগ করে `import`/`export` দিয়ে পুনর্ব্যবহার করার নিয়ম এখানে দেখানো হয়েছে।
 
 ```js
 // math.js
@@ -458,7 +486,9 @@ import * as MathUtils from "./math.js";
 
 ---
 
-## 14. Iterators & Generators
+## 14. Iterators & Generators — ইটারেটর ও জেনারেটর
+
+> **বাংলায়:** `for...of` লুপের পেছনের ইটারেটর এবং `function*` জেনারেটর (যা `yield` দিয়ে মাঝপথে থামে) নিয়ে এই অধ্যায়।
 
 ```js
 // Generator function
@@ -490,7 +520,9 @@ const range = {
 
 ---
 
-## 15. Advanced Object Features
+## 15. Advanced Object Features — অ্যাডভান্সড অবজেক্ট ফিচার (Symbol, Proxy, WeakMap)
+
+> **বাংলায়:** `Symbol` (ইউনিক কী), `Proxy` (অপারেশন ইন্টারসেপ্ট), `WeakMap`/`Map`/`Set` ইত্যাদি উন্নত অবজেক্ট ফিচার নিয়ে আলোচনা।
 
 ```js
 // Symbols — unique identifiers
@@ -522,7 +554,9 @@ const set = new Set([1, 2, 2, 3]); // {1, 2, 3}
 
 ---
 
-## 16. Functional Programming Concepts
+## 16. Functional Programming Concepts — ফাংশনাল প্রোগ্রামিং ধারণা
+
+> **বাংলায়:** পিওর ফাংশন, ইমিউটেবিলিটি, কারিং, কম্পোজিশন ও মেমোাইজেশনের মতো ফাংশনাল প্রোগ্রামিং ধারণা এখানে দেখানো হয়েছে।
 
 ```js
 // Pure functions — no side effects, same input → same output
@@ -557,7 +591,9 @@ function memoize(fn) {
 
 ---
 
-## 17. Debounce & Throttle (common interview asks)
+## 17. Debounce & Throttle (common interview asks) — ডিবাউন্স ও থ্রটল (সাধারণ ইন্টারভিউ প্রশ্ন)
+
+> **বাংলায়:** ডিবাউন্স (বিরতির পর একবার চালায়) ও থ্রটল (নির্দিষ্ট সময়ে সর্বোচ্চ একবার চালায়) ফাংশন ফ্রিকোয়েন্সি কমাতে ব্যবহৃত হয়।
 
 ```js
 function debounce(fn, delay) {
@@ -582,7 +618,9 @@ function throttle(fn, limit) {
 
 ---
 
-## 18. `JSON`, Dates, and Math
+## 18. `JSON`, Dates, and Math — JSON, তারিখ ও ম্যাথ
+
+> **বাংলায়:** `JSON` (অবজেক্ট ↔ টেক্সট রূপান্তর), `Date` (তারিখ/সময়) ও `Math` (গাণিতিক ফাংশন) নিয়ে এই অধ্যায়।
 
 ```js
 JSON.stringify({ a: 1 });
@@ -599,7 +637,9 @@ Math.random(); // [0, 1)
 
 ---
 
-## 19. Modules of Modern Syntax Sugar
+## 19. Modules of Modern Syntax Sugar — আধুনিক সিনট্যাক্স সুগার
+
+> **বাংলায়:** অপশনাল চেইনিং (`?.`), নালিশ কোয়ালেসিং (`??`), লজিক্যাল অ্যাসাইনমেন্ট ও নিউমেরিক সেপারেটরের মতো নতুন সুবিধাজনক সিনট্যাক্স এখানে দেখানো হয়েছে।
 
 ```js
 // Optional chaining
@@ -622,7 +662,9 @@ const { name: userName = "Anon" } = user;
 
 ---
 
-## 20. Common Design Patterns
+## 20. Common Design Patterns — সাধারণ ডিজাইন প্যাটার্ন
+
+> **বাংলায়:** মডিউল, সিঙ্গলটন, অবজারভার (ইভেন্ট এমিটার) ও ফ্যাক্টরি—জাভাস্ক্রিপ্টে ব্যবহৃত পরিচিত ডিজাইন প্যাটার্নগুলো এখানে দেওয়া হয়েছে।
 
 ```js
 // Module Pattern
@@ -660,7 +702,9 @@ function createUser(type) {
 
 ---
 
-## 21. Quick Reference: Interview Concepts
+## 21. Quick Reference: Interview Concepts — দ্রুত রেফারেন্স: ইন্টারভিউ ধারণাসমূহ
+
+> **বাংলায়:** ইন্টারভিউতে সচরাচর জিজ্ঞাসিত গুরুত্বপূর্ণ ধারণাগুলো এক নজরে টেবিল আকারে দেওয়া হয়েছে।
 
 | Concept | Key Point |
 |---|---|
@@ -677,7 +721,9 @@ function createUser(type) {
 
 ---
 
-## 22. Practice Tips
+## 22. Practice Tips — অনুশীলনের টিপস
+
+> **বাংলায়:** নিজে হাতে কোড লিখে ও আউটপুট অনুমান করে দক্ষতা বাড়ানোর কিছু পরামর্শ এখানে দেওয়া হয়েছে।
 - Rebuild `map`, `filter`, `reduce` from scratch to test understanding.
 - Predict output of async/event-loop snippets before running them.
 - Convert callback-based code to Promises, then to async/await.
